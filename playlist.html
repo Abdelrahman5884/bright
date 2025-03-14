@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="images/favicon.ico">
+   <title>Video Playlist</title>
+
+   <!-- Font Awesome CDN link -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <!-- Custom CSS file link -->
+   <link rel="stylesheet" href="css/style.css">
+
+    <style>
+   
+        .action-buttons {
+         display: flex;
+         align-items: center;
+         gap: 15px;
+         margin-left: 35%;
+         margin-top: 1rem;
+      }
+
+      .like-btn, .sub-btn {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         height: 50px;
+         width: 150px;
+         background-color: #8e44ad;
+         font-size: 18px;
+         cursor: pointer;
+         color: #fff;
+         border-radius: 25px;
+         transition: background 0.3s ease;
+         text-align: center;
+         padding: 10px;
+         gap: 10px;
+      }
+
+      .like-btn:hover, .sub-btn:hover {
+         background-color: #732d91;
+      }
+
+      .like-btn i, .sub-btn i {
+         font-size: 22px;
+      }
+
+      /* تصميم قسم التعليقات */
+      .comments-section {
+         width: 80%;
+         margin: auto;
+         margin-top: 2rem;
+         padding: 20px;
+         border-radius: 10px;
+         background-color: #f9f9f9;
+      }
+
+      .comment-box {
+         display: flex;
+         align-items: center;
+         gap: 10px;
+      }
+
+      .comment-input {
+         flex: 1;
+         height: 40px;
+         padding: 10px;
+         font-size: 16px;
+         border-radius: 20px;
+         border: 1px solid #ccc;
+      }
+
+      .comment-submit {
+         height: 40px;
+         width: 100px;
+         background-color: #8e44ad;
+         color: white;
+         border-radius: 20px;
+         font-size: 16px;
+         cursor: pointer;
+         border: none;
+      }
+
+      .comment-submit:hover {
+         background-color: #732d91;
+      }
+
+      /* منطقة عرض التعليقات */
+      .comment-list {
+         margin-top: 1rem;
+         padding: 10px;
+         background: white;
+         border-radius: 10px;
+      }
+
+      .comment-item {
+         padding: 10px;
+         border-bottom: 1px solid #ddd;
+      }
+
+   
+    </style>
+
+</head>
+<body>
+
+<header class="header">
+   <section class="flex">
+      <a href="index.html" class="logo">Bright</a>
+
+      <form action="search.html" method="post" class="search-form">
+         <input type="text" name="search_box" required placeholder="Search courses..." maxlength="100">
+         <button type="submit" class="fas fa-search"></button>
+      </form>
+
+      <div class="icons">
+         <div id="menu-btn" class="fas fa-bars"></div>
+         <div id="search-btn" class="fas fa-search"></div>
+         <div id="user-btn" class="fas fa-user"></div>
+         <div id="toggle-btn" class="fas fa-sun"></div>
+      </div>
+
+      <div class="profile">
+         <img src="images/pic-2.jpg" class="image" alt="Profile Picture">
+         <h3 class="name">Myrna Nader</h3>
+         <!-- <p class="role">Student</p> -->
+         <a href="profile.html" class="btn">View Profile</a>
+         <div class="flex-btn">
+            <a href="login.php" class="option-btn">Login</a>
+            <a href="register.php" class="option-btn">Register</a>
+         </div>
+      </div>
+   </section>
+</header>
+
+<div class="side-bar">
+   <div id="close-btn">
+      <i class="fas fa-times"></i>
+   </div>
+
+   <div class="profile">
+      <img src="images/pic-2.jpg" class="image" alt="Profile Picture">
+      <h3 class="name">Myrna Nader</h3>
+      <!-- <p class="role">Student</p> -->
+      <a href="profile.html" class="btn">View Profile</a>
+   </div>
+
+   <nav class="navbar">
+      <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="about.html"><i class="fas fa-question"></i><span>About</span></a>
+      <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+      <a href="teachers.html"><i class="fas fa-chalkboard-user"></i><span>upload courese</span></a>
+      <a href="contact.html"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+   </nav>
+</div>
+
+<section class="playlist-details">
+   <h1 class="heading">Playlist Details</h1>
+
+   <div class="row">
+      <div class="column">
+   
+         <div class="thumb">
+            <img src="images/python.png" alt="Playlist Thumbnail">
+         </div>
+      </div>
+      <div class="column">
+         <div class="tutor">
+            <img src="images/pic-3.jpg" alt="Tutor Picture">
+            <div>
+               <h3>Mohammed</h3>
+            </div>
+         </div>
+   
+         <div class="details">
+            <h3>Advanced level</h3>
+            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum minus reiciendis, error sunt veritatis exercitationem deserunt velit doloribus itaque voluptate.</p> -->
+            <a href="teacher_profile.html" class="inline-btn">View Profile</a>
+         </div>
+      </div>
+   </div>
+</section>
+
+<section class="playlist-videos">
+   <h1 class="heading">Playlist Videos</h1>
+
+   <div class="box-container">
+      <a class="box" href="watch-video_1.html">
+         <img src="images/python.png" alt="Video Thumbnail">
+         <h3>How to learn python</h3>
+      </a>
+   </div>
+</section>
+
+<!-- أزرار الإعجاب والاشتراك -->
+<div class="action-buttons">
+   <div class="like-btn" onclick="toggleLike()">
+      <i class="fas fa-thumbs-up"></i>
+      <span id="like-count">5000</span>
+   </div>
+
+   <div class="sub-btn">
+      <i class="fas fa-bell"></i>
+      <a style="color:#ffffff;" href="http://localhost/bright/payment.php">Subscribe</a>
+   </div>
+</div>
+
+
+<div class="comments-section">
+   <h3>Comments</h3>
+   <div class="comment-box">
+      <input class="comment-input" type="text" id="comment-text" placeholder="Add a comment..." required>
+      <button class="comment-submit" onclick="addComment()">Comment</button>
+   </div>
+   
+   <div id="comment-list" class="comment-list">
+ 
+   </div>
+</div>
+
+<script>
+   function toggleLike() {
+      let likeBtn = document.querySelector('.like-btn');
+      let likeCount = document.getElementById('like-count');
+      let currentLikes = parseInt(likeCount.textContent);
+
+      if (likeBtn.classList.contains('liked')) {
+         likeCount.textContent = currentLikes - 1;
+         likeBtn.classList.remove('liked');
+      } else {
+         likeCount.textContent = currentLikes + 1;
+         likeBtn.classList.add('liked');
+      }
+   }
+
+   function addComment() {
+      let commentText = document.getElementById('comment-text').value;
+      if (commentText.trim() === "") return; 
+
+      let commentList = document.getElementById('comment-list');
+      let commentItem = document.createElement('div');
+      commentItem.classList.add('comment-item');
+      commentItem.textContent = commentText;
+
+      commentList.prepend(commentItem); 
+
+      document.getElementById('comment-text').value = ""; 
+   }
+</script>
+
+
+
+<!-- Custom JS file link -->
+<script src="js/script.js"></script>
+
+</body>
+</html>
