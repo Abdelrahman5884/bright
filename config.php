@@ -1,35 +1,30 @@
+
 <?php
 
-$host = "localhost";
-$dbname = "bright1";
-$username = "root"; 
-$password = ""; 
+if (!class_exists('Database')) {
+  class Database {
+      private static $instance = null;
+      private $conn;
+      private $host = "localhost";
+      private $db = "bright";
+      private $user = "root";
+      private $pass = "";
 
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
+      private function __construct() {
+          $this->conn = new PDO("mysql:host=$this->host;dbname=$this->db;charset=utf8", $this->user, $this->pass);
+          $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      }
+
+      public static function getInstance() {
+          if (self::$instance === null) {
+              self::$instance = new Database();
+          }
+          return self::$instance;
+      }
+
+      public function getConnection() {
+          return $this->conn;
+      }
+  }
 }
-?>
-<?php 
-
-$dsn ="mysql:host=localhost;dbname=bright;charset=utf8";
-$user = "root";
-$pass = "";
-
-try {
-     $pdo = new pdo($dsn,$user,$pass); 
-    //   $p = "insert into `user` (`user_name`,`phone` , `user_ID`) value ('abdo',123,50)";
-    //   $s = "select * from `user`";
-      $pdo->setAttribute(Pdo::ATTR_ERRMODE,pdo::ERRMODE_EXCEPTION);
-    //   $pdo->exec($p); 
-        
- }
- catch(PDOException $e){
-echo "failed " . $e->getMessage();
- }
-
-
-
 ?>

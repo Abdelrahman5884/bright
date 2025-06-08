@@ -1,0 +1,17 @@
+{
+    "name": "laptopworld/bright",
+    "autoload": {
+        "psr-4": {
+            "Laptopworld\\Bright\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "yes"
+        }
+    ],
+    
+    "require-dev": {
+        "phpunit/phpunit": "11"
+    }
+}

@@ -8,10 +8,23 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$course_price = 20;
+$course_id = isset($_GET['course_id']) ? (int)$_GET['course_id'] : 0;
 
-$stmt = $conn->prepare("SELECT amount_paid, paid_full FROM payments WHERE user_id = ?");
-$stmt->execute([$user_id]);
+$conn = Database::getInstance()->getConnection();
+
+$stmt = $conn->prepare("SELECT price FROM courses WHERE course_id = ?");
+$stmt->execute([$course_id]);
+$course = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$course) {
+    echo "<script>alert('Course not found!'); window.location.href='courses.php';</script>";
+    exit;
+}
+
+$course_price = number_format($course['price'], 2);
+
+$stmt = $conn->prepare("SELECT amount_paid, paid_full FROM payments WHERE user_id = ? AND course_id = ?");
+$stmt->execute([$user_id, $course_id]);
 $payment = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $amount_paid = $payment ? $payment['amount_paid'] : 0;
@@ -22,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $amount = (int) $_POST["amount"];
 
     if ($amount <= 0) {
-        echo "<script>alert('Enter a valid amount!'); window.location.href='payment.php';</script>";
+        echo "<script>alert('Enter a valid amount!'); window.location.href='payment.php?course_id=" . $course_id . "';</script>";
         exit;
     }
 
@@ -30,14 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $paid_full = $new_amount_paid >= $course_price ? 1 : 0;
 
     if ($payment) {
-        $stmt = $conn->prepare("UPDATE payments SET amount_paid = ?, paid_full = ? WHERE user_id = ?");
-        $stmt->execute([$new_amount_paid, $paid_full, $user_id]);
+        $stmt = $conn->prepare("UPDATE payments SET amount_paid = ?, paid_full = ? WHERE user_id = ? AND course_id = ?");
+        $stmt->execute([$new_amount_paid, $paid_full, $user_id, $course_id]);
     } else {
-        $stmt = $conn->prepare("INSERT INTO payments (user_id, amount_paid, paid_full) VALUES (?, ?, ?)");
-        $stmt->execute([$user_id, $new_amount_paid, $paid_full]);
+        $stmt = $conn->prepare("INSERT INTO payments (user_id, course_id, amount_paid, paid_full) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$user_id, $course_id, $new_amount_paid, $paid_full]);
     }
 
-    echo "<script>alert('Payment successful!'); window.location.href='payment.php';</script>";
+    echo "<script>alert('Payment successful!'); window.location.href='payment.php?course_id=" . $course_id . "';</script>";
 }
 ?>
 <!DOCTYPE html>
@@ -47,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vodafone Cash Payment</title>
     <style>
-    
     body { text-align: center; font-family: Arial, sans-serif; background: #f4f4f4; padding: 50px; }
     .container { background: white; padding: 20px; border-radius: 10px; width: 350px; margin: auto; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border: 3px solid #e60000; }
     .btn { background: #e60000; color: white; padding: 10px; border: none; cursor: pointer; width: 100%; border-radius: 5px; }
@@ -72,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     <?php } else { ?>
         <p>Full payment received! Access your course now.</p>
-        <a href="watch-video.html"><button class="btn">Watch Course</button></a>
+        <a href="watch-video.php?course_id=<?= $course_id ?>"><button class="btn">Watch Course</button></a>
     <?php } ?>
 </div>
 
